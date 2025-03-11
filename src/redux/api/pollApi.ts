@@ -20,6 +20,14 @@ export const pollApi = createApi({
       query: () => "/poll/all",
       providesTags: ["polls"],
     }),
+    getPollById: builder.query({
+      query: (id: string) => `/poll/${id}`,
+      providesTags: ["polls"],
+    }),
+    getMyPolls: builder.query({
+      query: (userId: string) => `/poll/my/${userId}`,
+      providesTags: ["polls"],
+    }),
     createVote: builder.mutation({
       query: (data) => {
         return {
@@ -37,5 +45,7 @@ export const pollApi = createApi({
 export const {
   useCreatePollMutation,
   useGetPollsQuery,
-  useCreateVoteMutation
+  useGetPollByIdQuery,
+  useCreateVoteMutation,
+  useGetMyPollsQuery
 } = pollApi;

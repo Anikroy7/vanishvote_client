@@ -21,6 +21,7 @@ export default function Navbar() {
 
                         <div className="hidden md:flex items-center space-x-1">
                             <Link to="/" className="py-5 px-3 text-gray-700 hover:text-gray-900">All Polls</Link>
+                            <Link to="/my-polls" className="py-5 px-3 text-gray-700 hover:text-gray-900">My Polls</Link>
 
                         </div>
                     </div>

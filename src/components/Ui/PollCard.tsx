@@ -8,7 +8,9 @@ export default function PollCard({ poll }: { poll: TPoll }) {
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [votedOptionIndex, setVotedOptionIndex] = useState<number | null>(null);
     const finalSelection = useDebounce(selectedOption);
-    const [createVote, {data}] = useCreateVoteMutation();
+    const [createVote] = useCreateVoteMutation();
+    const [copied, setCopied] = useState(false);
+    const pollLink = `${window.location.origin}/poll/${poll._id}`;
 
     useEffect(() => {
         poll.options.forEach((option, index) => {
@@ -30,11 +32,27 @@ export default function PollCard({ poll }: { poll: TPoll }) {
             setVotedOptionIndex(finalSelection);
         }
     }, [finalSelection, createVote, poll._id, vanishvote_user_id, votedOptionIndex]);
-// console.log(first)
-console.log(votedOptionIndex)
+    console.log(votedOptionIndex)
+
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(pollLink);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000)
+    };
     return (
         <div className="bg-white shadow-lg rounded-xl p-5 border border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">{poll.question}</h2>
+
+            <div className="flex items-center justify-between">
+
+                <h2 className="text-xl font-semibold text-gray-900">{poll.question}</h2>
+                <button
+                    onClick={copyToClipboard}
+                    className="ml-2 px-3 py-1 text-sm bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition"
+                >
+                    {copied ? "Copied!" : "Copy"}
+                </button>
+            </div>
             <p className="text-sm text-gray-500 mb-3">
                 Ends: {new Date(poll.expiresAt).toLocaleString()}
             </p>
@@ -44,14 +62,13 @@ console.log(votedOptionIndex)
                     <button
                         key={i}
                         onClick={() => votedOptionIndex === null && setSelectedOption(i)}
-                        className={`w-full flex justify-between items-center px-4 py-2 border rounded-lg transition ${
-                            votedOptionIndex === i
-                                ? "bg-green-100 border-green-500 text-green-600 font-semibold cursor-not-allowed"
-                                : selectedOption === i
+                        className={`w-full flex justify-between items-center px-4 py-2 border rounded-lg transition ${votedOptionIndex === i
+                            ? "bg-green-100 border-green-500 text-green-600 font-semibold cursor-not-allowed"
+                            : selectedOption === i
                                 ? "bg-blue-100 border-blue-500 text-blue-600 font-semibold"
                                 : "hover:bg-gray-200"
-                        }`}
-                        disabled={votedOptionIndex !== null} 
+                            }`}
+                        disabled={votedOptionIndex !== null}
                     >
                         <span>{option.text}</span>
                         {!poll.resultsHidden && (
