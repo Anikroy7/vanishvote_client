@@ -1,54 +1,87 @@
-# React + TypeScript + Vite
+# VanishVote
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+VanishVote is a simple and anonymous polling web application where users can create, share, and participate in polls that disappear after a set duration. No login is required, ensuring privacy and simplicity. Users can vote anonymously, and poll results are only visible until the poll expires.
 
-Currently, two official plugins are available:
+## Features
+### ✅ Create & Share Polls
+- Users can create a **multiple-choice** or **yes/no** poll.
+- Each poll is assigned a unique link for sharing.
+- Polls automatically expire after a chosen time (1 hour, 12 hours, 24 hours).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ✅ Vote & View Results
+- Anyone can vote **anonymously**.
+- Option to **hide results** until the poll ends.
+- Basic reactions available: **🔥 Trending, 👍 Like**.
 
-## Expanding the ESLint configuration
+### ✅ Privacy & Simplicity
+- No user login required.
+- Polls can be **private**, accessible only via a shared link.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ✅ Bonus Features (Optional)
+- Anonymous **comments** under polls.
+- **Dark/light mode** for a better UI experience.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technology Stack
+### **Frontend:**
+- React.js or Next.js
+- TailwindCSS (for styling, no external UI libraries)
+
+### **Backend:**
+- Node.js / Express (Simple REST API)
+
+### **Database:**
+- Firebase Firestore or MongoDB
+
+## Installation & Setup
+### **Prerequisites**
+- Node.js & npm installed
+- Firebase or MongoDB setup (depending on chosen database)
+
+### **Backend Setup**
+```sh
+# Clone the repository
+git clone https://github.com/Anikroy7/vanishvote_server.git
+cd vanishvote-backend
+
+# Install dependencies
+npm install
+
+# Set up environment variables in a `.env` file
+PORT=5000
+DB_URI=your_database_uri
+
+# Start the backend server
+npm start
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### **Frontend Setup**
+```sh
+# Clone the repository
+git clone https://github.com/Anikroy7/vanishvote_client.gi
+cd vanishvote-frontend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Install dependencies
+npm install
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# Start the frontend server
+npm run dev  # For Next.js
+# or
+npm start    # For React.js
 ```
+
+## Usage
+1. Navigate to the frontend URL.
+2. Create a poll and get a unique sharing link.
+3. Share the link with others.
+4. Users vote anonymously, and results are available (if not hidden).
+5. Polls expire after the chosen duration.
+
+## Deployment
+- **Frontend:** Deploy on Vercel / Netlify.
+- **Backend:** Deploy on Render / Railway / Firebase Functions.
+- **Database:** Use Firebase Firestore or MongoDB Atlas.
+
+## Submission Details
+- **GitHub Repository:** 
+  - [Frontend Repo](https://github.com/yourusername
