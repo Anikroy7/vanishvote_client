@@ -58,7 +58,7 @@ npm start
 ### **Frontend Setup**
 ```sh
 # Clone the repository
-git clone https://github.com/Anikroy7/vanishvote_client.gi
+git clone https://github.com/Anikroy7/vanishvote_client.git
 cd vanishvote-frontend
 
 # Install dependencies
