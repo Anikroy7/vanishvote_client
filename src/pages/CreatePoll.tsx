@@ -3,7 +3,7 @@ import MainLayout from "../components/Layout/MainLayout";
 import { useForm, useFieldArray, FieldValues } from "react-hook-form";
 import { Inputs } from "../types";
 import { FaTimes } from "react-icons/fa";
-import { addHours, addMinutes } from "date-fns";
+import { addHours } from "date-fns";
 import { useCreatePollMutation } from "../redux/api/pollApi";
 import { useNavigate } from "react-router-dom";
 
@@ -66,13 +66,11 @@ const CreatePoll = () => {
         const pollData = {
             ...data,
             createdBy: vanishvote_user_id,
-            expiresAt: addMinutes(new Date(Date.now()), 2)
+            expiresAt: addHours(new Date(Date.now()), data.expiredAt),
 
         }
         createPoll(pollData)
-        // console.log(pollData, vanishvote_user_id)
     };
-    console.log(isLoading, data)
     return (
         <MainLayout>
             <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">

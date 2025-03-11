@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { TPoll } from "../../types";
 import useDebounce from "../../hooks/debounce.hook";
 import { useCreateVoteMutation } from "../../redux/api/pollApi";
+import Reaction from "./Reaction";
 
 export default function PollCard({ poll }: { poll: TPoll }) {
     const vanishvote_user_id = localStorage.getItem("vanishvote_user_id");
@@ -32,7 +33,6 @@ export default function PollCard({ poll }: { poll: TPoll }) {
             setVotedOptionIndex(finalSelection);
         }
     }, [finalSelection, createVote, poll._id, vanishvote_user_id, votedOptionIndex]);
-    console.log(votedOptionIndex)
 
 
     const copyToClipboard = () => {
@@ -85,6 +85,7 @@ export default function PollCard({ poll }: { poll: TPoll }) {
                 <span>{poll.private ? "🔒 Private Poll" : "🌍 Public Poll"}</span>
                 <span>📅 Created: {new Date(poll.createdAt).toLocaleDateString()}</span>
             </div>
+            <Reaction poll= {poll}/>
         </div>
     );
 }

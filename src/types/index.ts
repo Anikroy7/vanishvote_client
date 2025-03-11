@@ -24,4 +24,8 @@ export type TPoll= {
   resultsHidden: boolean;
   private: boolean;
   createdBy: string;
+  reactions: TReaction[];
 }
+
+
+export type TReaction = { reactionType: string; userId: string }
