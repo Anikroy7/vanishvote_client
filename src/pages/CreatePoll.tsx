@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom";
 
 const CreatePoll = () => {
     const { register, handleSubmit, watch, formState: { errors }, control } = useForm<Inputs>();
-    const [createPoll, { isLoading, data }] = useCreatePollMutation()
+    const [createPoll, { isLoading, data }] = useCreatePollMutation();
     const navigate = useNavigate();
-    const vanishvote_user_id = localStorage.getItem('vanishvote_user_id')
-    const pollTypeField = watch("pollType")
+    const vanishvote_user_id = localStorage.getItem('vanishvote_user_id');
+    const pollTypeField = watch("pollType");
     const { fields, append, remove } = useFieldArray({
         control,
         name: "options",
@@ -30,10 +30,9 @@ const CreatePoll = () => {
 
     useEffect(() => {
         if (data && !isLoading) {
-            console.log('come dda', data, isLoading)
-            navigate('/')
+            navigate('/');
         }
-    }, [data, isLoading])
+    }, [data, isLoading]);
 
     const addOption = () => {
         append({ option: "" });
@@ -50,37 +49,37 @@ const CreatePoll = () => {
             data.options.push({
                 "text": "Yes",
                 "vote": []
-            })
+            });
             data.options.push({
                 "text": "No",
                 "vote": []
-            })
+            });
         } else {
             const finalOptions = data.options.map((option: { option: string }) => ({
                 text: option.option,
                 vote: []
-            }))
-            data.options.length = 0
+            }));
+            data.options.length = 0;
             data.options = [...finalOptions];
         }
         const pollData = {
             ...data,
             createdBy: vanishvote_user_id,
             expiresAt: addHours(new Date(Date.now()), data.expiredAt),
-
-        }
-        createPoll(pollData)
+        };
+        createPoll(pollData);
     };
+
     return (
         <MainLayout>
-            <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Create a New Poll</h2>
+            <div className="max-w-lg mx-auto mt-10 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-xl">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Create a New Poll</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700 font-medium">Poll Type</label>
+                        <label className="block text-gray-700 dark:text-gray-300 font-medium">Poll Type</label>
                         <select
                             {...register("pollType", { required: true })}
-                            className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-200"
+                            className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                             onChange={(e) => setPollType(e.target.value)}
                         >
                             <option value="yes_no">Yes/No</option>
@@ -89,11 +88,11 @@ const CreatePoll = () => {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 font-medium">Question</label>
+                        <label className="block text-gray-700 dark:text-gray-300 font-medium">Question</label>
                         <input
                             {...register("question", { required: true })}
                             type="text"
-                            className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-200"
+                            className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                             placeholder="Enter your poll question"
                         />
                         {errors.question?.type === "required" && <p className="text-red-400">Question is required</p>}
@@ -101,14 +100,14 @@ const CreatePoll = () => {
 
                     {pollType === "multiple_choice" && (
                         <div>
-                            <label className="block text-gray-700 font-medium">Options</label>
+                            <label className="block text-gray-700 dark:text-gray-300 font-medium">Options</label>
                             {fields.map((field, index) => (
                                 <div key={field.id} className="flex items-center gap-2 mt-2">
                                     <input
                                         {...register(`options.${index}.option`, { required: "Option is required" })}
                                         type="text"
                                         defaultValue={field.option}
-                                        className="w-full p-2 border rounded-lg focus:ring focus:ring-blue-200"
+                                        className="w-full p-2 border rounded-lg focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                     />
                                     {fields.length > 2 && (
                                         <button
@@ -133,10 +132,10 @@ const CreatePoll = () => {
                     )}
 
                     <div>
-                        <label className="block text-gray-700 font-medium">Expired After</label>
+                        <label className="block text-gray-700 dark:text-gray-300 font-medium">Expired After</label>
                         <select
                             {...register("expiredAt", { required: true })}
-                            className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-200"
+                            className="w-full mt-1 p-2 border rounded-lg focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         >
                             <option value="1">1 hour</option>
                             <option value="12">12 hours</option>
@@ -151,7 +150,7 @@ const CreatePoll = () => {
                             defaultChecked={false}
                             className="mr-2"
                         />
-                        <label className="text-gray-700 font-medium">Is it Private?</label>
+                        <label className="text-gray-700 dark:text-gray-300 font-medium">Is it Private?</label>
                     </div>
 
                     <div className="flex items-center">
@@ -161,15 +160,13 @@ const CreatePoll = () => {
                             defaultChecked={true}
                             className="mr-2"
                         />
-                        <label className="text-gray-700 font-medium">Display Poll Results?</label>
+                        <label className="text-gray-700 dark:text-gray-300 font-medium">Display Poll Results?</label>
                     </div>
-
 
                     <button
                         type="submit"
                         className="w-full bg-cyan-600 text-white p-3 rounded-lg hover:bg-cyan-700"
                     >
-
                         {isLoading ? "Loading..." : "Create Poll"}
                     </button>
                 </form>

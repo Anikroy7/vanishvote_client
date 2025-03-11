@@ -34,18 +34,16 @@ export default function PollCard({ poll }: { poll: TPoll }) {
         }
     }, [finalSelection, createVote, poll._id, vanishvote_user_id, votedOptionIndex]);
 
-
     const copyToClipboard = () => {
         navigator.clipboard.writeText(pollLink);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000)
+        setTimeout(() => setCopied(false), 2000);
     };
+
     return (
-        <div className="bg-white shadow-lg rounded-xl p-5 border border-gray-200">
-
+        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-5 border border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between">
-
-                <h2 className="text-xl font-semibold text-gray-900">{poll.question}</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{poll.question}</h2>
                 <button
                     onClick={copyToClipboard}
                     className="ml-2 px-3 py-1 text-sm bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 transition"
@@ -53,7 +51,7 @@ export default function PollCard({ poll }: { poll: TPoll }) {
                     {copied ? "Copied!" : "Copy"}
                 </button>
             </div>
-            <p className="text-sm text-gray-500 mb-3">
+            <p className="text-sm text-gray-500 dark:text-gray-300 mb-3">
                 Ends: {new Date(poll.expiresAt).toLocaleString()}
             </p>
 
@@ -66,13 +64,13 @@ export default function PollCard({ poll }: { poll: TPoll }) {
                             ? "bg-green-100 border-green-500 text-green-600 font-semibold cursor-not-allowed"
                             : selectedOption === i
                                 ? "bg-blue-100 border-blue-500 text-blue-600 font-semibold"
-                                : "hover:bg-gray-200"
+                                : "hover:bg-gray-200 dark:hover:bg-gray-700 dark:border-gray-600"
                             }`}
                         disabled={votedOptionIndex !== null}
                     >
-                        <span>{option.text}</span>
+                        <span className="dark:text-white">{option.text}</span>
                         {!poll.resultsHidden && (
-                            <span className="text-gray-500">
+                            <span className="text-gray-500 dark:text-gray-400">
                                 {option.vote.length} votes {votedOptionIndex === i && "✔️"}
                             </span>
                         )}
@@ -81,11 +79,11 @@ export default function PollCard({ poll }: { poll: TPoll }) {
             </div>
 
             {/* Poll Info */}
-            <div className="mt-4 flex justify-between items-center text-gray-500 text-sm">
+            <div className="mt-4 flex justify-between items-center text-gray-500 dark:text-gray-400 text-sm">
                 <span>{poll.private ? "🔒 Private Poll" : "🌍 Public Poll"}</span>
                 <span>📅 Created: {new Date(poll.createdAt).toLocaleDateString()}</span>
             </div>
-            <Reaction poll= {poll}/>
+            <Reaction poll={poll} />
         </div>
     );
 }
